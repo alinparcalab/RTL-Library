@@ -1798,18 +1798,18 @@ logic [width-2:0] hadder_co;
 logic             xor_last;
 
 hadder inst_hadder (.a_i(en_i), .b_i(dff[0]), .s_o(hadder_so[0]), .c_o(hadder_co[0]));
-ndff2out #(.width(1), .rst_val(init[0])) asyc_pdff0 (.rsn_i(rsn_i), .clk_i(clk_i), .d_i(hadder_so[0]), .q_o(dff[0]), .qn_o(dffn[0]) );
+ndffaqn #(.width(1), .rst_val(init[0])) asyc_pdff0 (.rsn_i(rsn_i), .clk_i(clk_i), .d_i(hadder_so[0]), .q_o(dff[0]), .qn_o(dffn[0]) );
 
 genvar i;
 generate 
    for(i=1; i<(width-1); i=i+1)begin
       hadder                                    inst_hadder (.a_i(hadder_co[i-1]), .b_i(dff[i]), .s_o(hadder_so[i]), .c_o(hadder_co[i]));
-      ndff2out #(.width(1), .rst_val(init[i])) asyc_pdff1  (.rsn_i(rsn_i), .clk_i(clk_i), .d_i(hadder_so[i]), .q_o(dff[i]), .qn_o(dffn[i]) );
+      ndffaqn #(.width(1), .rst_val(init[i])) asyc_pdff1  (.rsn_i(rsn_i), .clk_i(clk_i), .d_i(hadder_so[i]), .q_o(dff[i]), .qn_o(dffn[i]) );
    end
 endgenerate
 
 assign xor_last = hadder_co[width-2] ^ dff[width-1];    
-ndff2out #(.width(1), .rst_val(init[width-1])) asyc_pdff2 (.rsn_i(rsn_i), .clk_i(clk_i), .d_i(xor_last), .q_o(dff[width-1]), .qn_o(dffn[width-1]) );
+ndffaqn #(.width(1), .rst_val(init[width-1])) asyc_pdff2 (.rsn_i(rsn_i), .clk_i(clk_i), .d_i(xor_last), .q_o(dff[width-1]), .qn_o(dffn[width-1]) );
 
 assign cnt_o[width-1:0] = dffn[width-1:0];
 
@@ -1842,7 +1842,7 @@ logic [width-1:0] next_cnt, dff, dff_n;
 
 assign next_cnt = {({(width-1){1'b0}}),en_i}; 
 
-adder_sub #( .width(width) ) inst_adder_sub (.a_i(dff), .b_i(next_cnt), .add_sub_i(up_down_i), .s_o(dff_n) );
+addsub #( .width(width) ) inst_adder_sub (.a_i(dff), .b_i(next_cnt), .add_sub_i(up_down_i), .s_o(dff_n) );
 
 pdffaq  #( .width(width), .rst_val(rst_val) ) inst_ndff1out ( .rsn_i(rsn_i), .clk_i(clk_i), .d_i(dff_n), .q_o(dff) );
 
@@ -1875,7 +1875,7 @@ logic [width-1:0] next_cnt, dff, dff_n;
 
 assign next_cnt = {({(width-1){1'b0}}),en_i}; 
 
-adder_sub #( .width(width) ) inst_adder_sub (.a_i(dff), .b_i(next_cnt), .add_sub_i(up_down_i), .s_o(dff_n) );
+addsub #( .width(width) ) inst_adder_sub (.a_i(dff), .b_i(next_cnt), .add_sub_i(up_down_i), .s_o(dff_n) );
 
 ndffaq  #( .width(width), .rst_val(rst_val) ) inst_ndff1out ( .rsn_i(rsn_i), .clk_i(clk_i), .d_i(dff_n), .q_o(dff) );
 
@@ -2264,7 +2264,7 @@ output logic clk_o
 
 logic clk_Latch;
 
-pdLL1out #( .width(1) ) inst_clk_Latch ( .EN_i(clk_i), .d_i(en_i), .q_o(clk_Latch) );
+pdLLq #( .width(1) ) inst_clk_Latch ( .EN_i(clk_i), .d_i(en_i), .q_o(clk_Latch) );
 
 assign clk_o = clk_Latch | clk_i;
 
