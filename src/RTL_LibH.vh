@@ -1,191 +1,262 @@
 // Set Globals
 
 `ifndef pdLq 
-   `define pdLq 
+   //`define pdLq 
 `endif
 
 `ifndef pdLaq
-   `define pdLaq
+   //`define pdLaq
 `endif
 
 `ifndef pdLqn
-   `define pdLqn
+   //`define pdLqn
 `endif
 
 `ifndef pdLaqn
-   `define pdLaqn
+   //`define pdLaqn
 `endif
 
 `ifndef ndLq
-   `define ndLq
+   //`define ndLq
 `endif
 
 `ifndef ndLaq
-   `define ndLaq
+   //`define ndLaq
 `endif
 
 `ifndef ndLqn
-   `define ndLqn
+   //`define ndLqn
 `endif
 
 `ifndef ndLaqn
-   `define ndLaqn
+   //`define ndLaqn
 `endif
 
 `ifndef pdfq
-   `define pdfq
+   //`define pdfq
 `endif
 
 `ifndef pdfsq
-   `define pdfsq
+   //`define pdfsq
 `endif
 
 `ifndef pdfaq
-   `define pdfaq
+   //`define pdfaq
 `endif
 
 `ifndef pdfsqn
-   `define pdfsqn
+   //`define pdfsqn
 `endif
 
 `ifndef pdfaqn
-   `define pdfaqn
+   //`define pdfaqn
 `endif
 
 `ifndef ndfq
-   `define ndfq
+   //`define ndfq
 `endif
 
 `ifndef ndfsq
-   `define ndfsq
+   //`define ndfsq
 `endif
 
 `ifndef ndfaq
-   `define ndfaq 
+   //`define ndfaq 
 `endif
 
 `ifndef ndfsqn
-   `define ndfsqn
+   //`define ndfsqn
 `endif
 
 `ifndef ndfaqn
-   `define ndfaqn
+   //`define ndfaqn
 `endif
 
 `ifndef ndLqLp
-   `define ndLqLp
+   //`define ndLqLp
 `endif
 
 `ifndef ndLqnLp
-   `define ndLqnLp
+   //`define ndLqnLp
 `endif
 
 `ifndef CGLaA
-   `define CGLaA 
+   //`define CGLaA 
 `endif
 
 `ifndef CGLA
-   `define CGLA
+   //`define CGLA
 `endif
 
 `ifndef CGFaA
-   `define CGFaA
+   //`define CGFaA
 `endif
 
 `ifndef CGFA
-   `define CGFA
+   //`define CGFA
 `endif
 
 `ifndef CGLaO
-   `define CGLaO
+  //`define CGLaO
 `endif
 
 `ifndef CGLO
-   `define CGLO
+   //`define CGLO
 `endif
 
 `ifndef CGFaO
-   `define CGFaO
+   //`define CGFaO
 `endif
 
 `ifndef CGFO
-   `define CGFO
+   //`define CGFO
+`endif
+
+`ifndef PRstSync
+   //`define PRstSync
+`endif
+
+`ifndef NRstSync
+   //`define NRstSync
+`endif
+
+`ifndef PClkSync
+   //`define PClkSync
+`endif
+
+`ifndef NClkSync
+   `define NClkSync
 `endif
 
 `ifndef hadder
-   `define hadder
+   //`define hadder
 `endif
 
 `ifndef addci
-   `define addci
+   //`define addci
 `endif
 
 `ifndef addcico
-   `define addcico
+   //`define addcico
 `endif
 
 `ifndef addco
-   `define addco
+   //`define addco
 `endif
 
 `ifndef addsub
-   `define addsub
+   //`define addsub
 `endif
 
 `ifndef addsubco
-   `define addsubco
+   //`define addsubco
 `endif
 
 `ifndef supcnt
-   `define supcnt
+   //`define supcnt
    //   `define Beh_supcnt
 `endif
 
 `ifndef suncnt
-   `define suncnt
+   //`define suncnt
    //   `define Beh_suncnt
 `endif
 
 `ifndef sdpcnt
-   `define sdpcnt
+   //`define sdpcnt
    //   `define Beh_sdpcnt
 `endif
 
 `ifndef sdncnt
-   `define sdncnt
+   //`define sdncnt
    //   `define Beh_sdncnt
 `endif
 
 `ifndef sudpcnt
-   `define sudpcnt
+   //`define sudpcnt
    //   `define Beh_sudpcnt
 `endif
 
 `ifndef sudncnt
-   `define sudncnt
+   //`define sudncnt
    //   `define Beh_sudncnt
 `endif
 
 `ifndef aupcnt
-   `define aupcnt
+   //`define aupcnt
 `endif
 
 `ifndef auncnt
-   `define auncnt
+   //`define auncnt
 `endif
 
 `ifndef adpcnt
-   `define adpcnt
+   //`define adpcnt
 `endif
 
 `ifndef adncnt
-   `define adncnt
+   //`define adncnt
 `endif
 
+`ifndef twosc
+   //`define twosc
+`endif
 
+`ifndef evparitygen
+   //`define evparitygen
+`endif
+
+`ifndef findfirst1
+   //`define findfirst1
+`endif
+
+`ifndef findfirst1hot
+   //`define findfirst1hot
+`endif
+
+`ifndef ecc_encode32b
+   //`define ecc_encode32b
+`endif
+
+`ifndef ecc_decode32b
+   //`define ecc_decode32b
+`endif
+
+`ifndef maskandmatch
+   //`define maskandmatch
+`endif
+
+`ifndef rangecheck32b
+   //`define rangecheck32b
+`endif
 
 // Compiler Directives for Modules 
 // Don't Change the below code!!!
+
+`ifdef PClkSync
+   `ifndef pdfaq
+      `define pdfaq
+   `endif
+`endif
+
+`ifdef NClkSync
+   `ifndef ndfaq
+      `define ndfaq
+   `endif
+`endif
+
+`ifdef PRstSync
+   `ifndef pdfaq
+      `define pdfaq
+   `endif
+`endif
+
+`ifdef NRstSync
+   `ifndef ndfaq
+      `define ndfaq
+   `endif
+`endif
+
 `ifdef supcnt
    `ifndef Beh_supcnt
       `ifndef hadder
