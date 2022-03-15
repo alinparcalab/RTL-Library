@@ -315,7 +315,9 @@
    ( 
       input  logic             rsn_i,
       input  logic             en_i,
+      
       input  logic [width-1:0] d_i,
+
       output logic [width-1:0] q_o
    );
    
@@ -358,7 +360,9 @@
    ( 
       input  logic rsn_i,
       input  logic en_i,
+
       input  logic [width-1:0] d_i,
+
       output logic [width-1:0] q_o,
       output logic [width-1:0] qn_o
    );
@@ -421,6 +425,7 @@
       input  logic             clk_i,
       
       input  logic [width-1:0] d_i,
+
       output logic [width-1:0] q_o
    );
 
@@ -448,6 +453,7 @@
       input  logic             clk_i,
    
       input  logic [width-1:0] d_i,
+
       output logic [width-1:0] q_o
    );
    
@@ -479,6 +485,7 @@
       input  logic             clk_i,
       
       input  logic [width-1:0] d_i,
+
       output logic [width-1:0] q_o
    );
    
@@ -510,6 +517,7 @@
       input  logic             clk_i,
       
       input  logic [width-1:0] d_i,
+
       output logic [width-1:0] q_o,
       output logic [width-1:0] qn_o
    );
@@ -543,6 +551,7 @@
       input  logic             clk_i,
       
       input  logic [width-1:0] d_i,
+
       output logic [width-1:0] q_o,
       output logic [width-1:0] qn_o
    );
@@ -1658,4 +1667,3 @@
 `endif
 
 // LOADABLE COUNTERS
-// ToDo
