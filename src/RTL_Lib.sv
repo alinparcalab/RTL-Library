@@ -918,6 +918,7 @@
    endmodule : NRstSync
 `endif
 
+// Clock Synchronizer On Rising Edge
 `ifdef PClkSync
    module PClkSync #(parameter width = 2, parameter depth = 2) // Check Technology Documentation
    (
@@ -942,6 +943,7 @@
    endmodule : PClkSync
 `endif
 
+// Clock Synchronizer On Falling Edge
 `ifdef NClkSync
    module NClkSync #(parameter width = 2, parameter depth = 2) // Check Technology Documentation
    (
@@ -967,10 +969,13 @@
 `endif
 
 
-///////////////////////
-// Counters Circuits //
-///////////////////////
 
+
+
+
+//////////////////////
+// Counter Circuits //
+//////////////////////
 
 // Synchronous Counter
 // UP Counter !!!
@@ -1521,6 +1526,229 @@
    endmodule : adncnt
 `endif
 
+// Synchronous Counter
+// UP Counter !!!
+// GRAY CODE !!!
+// Configurable Width from 1 to N
+// Configurable Reset Value (0 to N)
+// Reset on Low '0'
+// Rising Edge !!!
+// Enable only High '1' (inc_i)
+// inst: pgucnt #(.width(), .rval()) ipgucnt0 (.rsn_i(), .clk_i(), .inc_i(), .gray_o());
+`ifdef pgucnt
+   module pgucnt #(parameter width = 5, parameter rval = 0)
+   (
+      input  logic             rsn_i, 
+      input  logic             clk_i, 
+
+      input  logic             inc_i,
+
+      output logic [width-1:0] gray_o
+   );
+      localparam [width-1:1] lone = 0;
+
+      logic [width-1:0] gnext, bnext, bin, gray;
+
+      pdfaq #(.width(width), .rval(rval)) i0 (.*, .d_i(gnext), .q_o(gray));
+      
+      gray2bin #(.width(width)) i1 (.gray_i(gray), .bin_o(bin));
+
+      adder #(.width(width)) i2 (.a_i(bin), .b_i({lone,inc_i}), .s_o(bnext));
+
+      bin2gray #(.width(width)) i3 (.bin_i(bnext), .gray_o(gnext));
+      
+      assign gray_o = gray;
+
+   endmodule : pgucnt
+`endif
+
+// Synchronous Counter
+// UP Counter !!!
+// GRAY CODE !!!
+// Configurable Width from 1 to N
+// Configurable Reset Value (0 to N)
+// Reset on Low '0'
+// Falling Edge !!!
+// Enable only High '1' (inc_i)
+// inst: ngucnt #(.width(), .rval()) ipgucnt0 (.rsn_i(), .clk_i(), .inc_i(), .gray_o());
+`ifdef ngucnt
+   module ngucnt #(parameter width = 5, parameter rval = 0)
+   (
+      input  logic             rsn_i, 
+      input  logic             clk_i, 
+
+      input  logic             inc_i,
+
+      output logic [width-1:0] gray_o
+   );
+      localparam [width-1:1] lone = 0;
+
+      logic [width-1:0] gnext, bnext, bin, gray;
+
+      ndfaq #(.width(width), .rval(rval)) i0 (.*, .d_i(gnext), .q_o(gray));
+      
+      gray2bin #(.width(width)) i1 (.gray_i(gray), .bin_o(bin));
+
+      adder #(.width(width)) i2 (.a_i(bin), .b_i({lone,inc_i}), .s_o(bnext));
+
+      bin2gray #(.width(width)) i3 (.bin_i(bnext), .gray_o(gnext));
+      
+      assign gray_o = gray;
+
+   endmodule : ngucnt
+`endif
+
+// Synchronous Counter
+// UP Counter !!!
+// GRAY CODE !!!
+// Configurable Width from 1 to N
+// Configurable Reset Value (0 to N)
+// Reset on Low '0'
+// Rising Edge !!!
+// Enable only High '1' (inc_i)
+// inst: pgdcnt #(.width(), .rval()) ipgucnt0 (.rsn_i(), .clk_i(), .inc_i(), .gray_o());
+`ifdef pgdcnt
+   module pgdcnt #(parameter width = 5, parameter rval = 0)
+   (
+      input  logic             rsn_i, 
+      input  logic             clk_i, 
+
+      input  logic             inc_i,
+
+      output logic [width-1:0] gray_o
+   );
+      localparam [width-1:1] lone = 0;
+
+      logic [width-1:0] gnext, bnext, bin, gray;
+
+      pdfaq #(.width(width), .rval(rval)) i0 (.*, .d_i(gnext), .q_o(gray));
+      
+      gray2bin #(.width(width)) i1 (.gray_i(gray), .bin_o(bin));
+
+      addsub #(.width(width)) i2 (.a_i(bin), .b_i({lone,inc_i}), .as_i(1'b1), .s_o(bnext));
+
+      bin2gray #(.width(width)) i3 (.bin_i(bnext), .gray_o(gnext));
+      
+      assign gray_o = gray;
+
+   endmodule : pgdcnt
+`endif
+
+// Synchronous Counter
+// UP Counter !!!
+// GRAY CODE !!!
+// Configurable Width from 1 to N
+// Configurable Reset Value (0 to N)
+// Reset on Low '0'
+// Falling Edge !!!
+// Enable only High '1' (inc_i)
+// inst: ngdcnt #(.width(), .rval()) ipgucnt0 (.rsn_i(), .clk_i(), .inc_i(), .gray_o());
+`ifdef ngdcnt
+   module ngdcnt #(parameter width = 5, parameter rval = 0)
+   (
+      input  logic             rsn_i, 
+      input  logic             clk_i, 
+
+      input  logic             inc_i,
+
+      output logic [width-1:0] gray_o
+   );
+      localparam [width-1:1] lone = 0;
+
+      logic [width-1:0] gnext, bnext, bin, gray;
+
+      ndfaq #(.width(width), .rval(rval)) i0 (.*, .d_i(gnext), .q_o(gray));
+      
+      gray2bin #(.width(width)) i1 (.gray_i(gray), .bin_o(bin));
+
+      addsub #(.width(width)) i2 (.a_i(bin), .b_i({lone,inc_i}), .as_i(1'b1), .s_o(bnext));
+
+      bin2gray #(.width(width)) i3 (.bin_i(bnext), .gray_o(gnext));
+      
+      assign gray_o = gray;
+
+   endmodule : ngdcnt
+`endif
+
+// Synchronous Counter
+// UP Down Counter !!!
+// GRAY CODE !!!
+// Configurable Width from 1 to N
+// Configurable Reset Value (0 to N)
+// Reset on Low '0'
+// Rising Edge !!!
+// Enable only High '1' (inc_i)
+// Count up on '0' Count Down on '1' (ud_i)
+// inst: pgdcnt #(.width(), .rval()) ipgucnt0 (.rsn_i(), .clk_i(), .inc_i(), .gray_o());
+`ifdef pgudcnt
+   module pgudcnt #(parameter width = 5, parameter rval = 0)
+   (
+      input  logic             rsn_i, 
+      input  logic             clk_i, 
+
+      input  logic             inc_i, 
+      input  logic             ud_i, 
+
+      output logic [width-1:0] gray_o
+   );
+      localparam [width-1:1] lone = 0;
+
+      logic [width-1:0] gnext, bnext, bin, gray;
+
+      pdfaq #(.width(width), .rval(rval)) i0 (.*, .d_i(gnext), .q_o(gray));
+      
+      gray2bin #(.width(width)) i1 (.gray_i(gray), .bin_o(bin));
+
+      addsub #(.width(width)) i2 (.a_i(bin), .b_i({lone,inc_i}), .as_i(ud_i), .s_o(bnext));
+
+      bin2gray #(.width(width)) i3 (.bin_i(bnext), .gray_o(gnext));
+      
+      assign gray_o = gray;
+
+   endmodule : pgudcnt
+`endif
+
+// Synchronous Counter
+// UP Down Counter !!!
+// GRAY CODE !!!
+// Configurable Width from 1 to N
+// Configurable Reset Value (0 to N)
+// Reset on Low '0'
+// Falling Edge !!!
+// Enable only High '1' (inc_i)
+// Count up on '0' Count Down on '1' (ud_i)
+// inst: ngdcnt #(.width(), .rval()) ipgucnt0 (.rsn_i(), .clk_i(), .inc_i(), .gray_o());
+`ifdef ngudcnt
+   module ngudcnt #(parameter width = 5, parameter rval = 0)
+   (
+      input  logic             rsn_i, 
+      input  logic             clk_i, 
+
+      input  logic             inc_i,
+      input  logic             ud_i, 
+
+      output logic [width-1:0] gray_o
+   );
+      localparam [width-1:1] lone = 0;
+
+      logic [width-1:0] gnext, bnext, bin, gray;
+
+      ndfaq #(.width(width), .rval(rval)) i0 (.*, .d_i(gnext), .q_o(gray));
+      
+      gray2bin #(.width(width)) i1 (.gray_i(gray), .bin_o(bin));
+
+      addsub #(.width(width)) i2 (.a_i(bin), .b_i({lone,inc_i}), .as_i(ud_i), .s_o(bnext));
+
+      bin2gray #(.width(width)) i3 (.bin_i(bnext), .gray_o(gnext));
+      
+      assign gray_o = gray;
+
+   endmodule : ngudcnt
+`endif
+
+
+
+
 // LOADABLE COUNTERS
 // ToDo
 
@@ -1759,6 +1987,24 @@
 // Configurable N bit 
 // Carry Transport
 // Carry In Only
+`ifdef adder
+   module adder #(parameter width = 4) 
+   (
+      input  logic [width-1:0] a_i,
+      input  logic [width-1:0] b_i,
+
+      output logic [width-1:0] s_o
+   );
+            
+      assign s_o = a_i + b_i;
+      
+   endmodule : adder
+`endif
+
+// Adder
+// Configurable N bit 
+// Carry Transport
+// Carry In Only
 `ifdef addci
    module addci #(parameter width = 4) 
    (
@@ -1841,7 +2087,7 @@
    (
       input  logic [width-1:0] a_i,
       input  logic [width-1:0] b_i,
-      input  logic             as_i,
+      input  logic             as_i, // IF as_i == 0 Do ADD || IF as_i == 1 Do SUB
 
       output logic [width-1:0] s_o
    );
@@ -1883,3 +2129,45 @@
       
    endmodule : addsubco
 `endif
+
+// Binary to Gray Converter
+`ifdef bin2gray
+   module bin2gray #(parameter width = 4)
+   (
+      input  logic [width-1:0] bin_i,   	
+      output logic [width-1:0] gray_o
+   );
+
+      //for(genvar i=0; i<width-1; i++)begin
+      //   assign gray_o[i] = bin_i[i]^bin_i[i+1];
+      //end
+
+      //assign gray_o[width-1] = bin_i[width-1];
+
+      assign gray_o = (bin_i>>1) ^ bin_i; // optimized on Synthesis
+
+   endmodule : bin2gray
+`endif
+
+// Gray to Binary Converter
+`ifdef gray2bin
+   module gray2bin #(parameter width = 4)
+   (
+      input  logic [width-1:0] gray_i,
+      output logic [width-1:0] bin_o
+   );
+   
+      //for(genvar i=width-1; i>0; i--)begin
+      //   assign bin_o[i-1] = gray_i[i-1]^bin_o[i];
+      //end
+
+      //assign bin_o[width-1] = gray_i[width-1];
+
+      for(genvar i=0; i<width; i++)begin
+          assign bin_o[i] = ^(gray_i>>i); // Optimized on Synthesis
+      end
+
+   endmodule : gray2bin
+`endif
+
+
