@@ -2169,5 +2169,3 @@
 
    endmodule : gray2bin
 `endif
-
-
