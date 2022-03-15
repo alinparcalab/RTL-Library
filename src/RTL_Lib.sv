@@ -315,7 +315,7 @@
    ( 
       input  logic             rsn_i,
       input  logic             en_i,
-      
+
       input  logic [width-1:0] d_i,
 
       output logic [width-1:0] q_o
@@ -1667,3 +1667,4 @@
 `endif
 
 // LOADABLE COUNTERS
+// ToDo
