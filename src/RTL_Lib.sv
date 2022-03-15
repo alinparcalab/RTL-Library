@@ -34,7 +34,6 @@
 //       - 5th letter represent that this element has an enable ex: pdLLe -> "e" - Enable
 //       - 6th letter represent that this element has a standard output ex: pdLLeq -> "q" - Data output
 //       - 7th letter represent that this element has an inverted output ex: pdLLeqn -> "n" - Inverted data output
-
 //       - if 8th & 9th letters are "lp" the element is low power focused 
 
 
