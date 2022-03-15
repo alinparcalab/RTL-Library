@@ -15,29 +15,6 @@
 
 
 
-//////////////////////////////////////////////////////////
-// _____         __      _________   ______ ____  ____  // 
-//|_   _|       /  \    |  _   _  |./ ___  |_   ||   _| // 
-//  | |        / /\ \   |_/ | | \_| ./   \_| | |__| |   //  
-//  | |   _   / ____ \      | |   | |        |  __  |   //  
-// _| |__/ |_/ /    \ \_   _| |_  \ \.___.'\_| |  | |_  //
-//|________|____|  |____| |_____|  \._____.'____||____| //
-//                                                      //
-//////////////////////////////////////////////////////////
- 
-
-// The Following Info is available only for Standard Latches, other information will be written as comments before each component
-// Name: - First letter represent the triggering edge ex: pdLL -> "p" Positive edge 
-//       - Second letter represent the type of flip flop ex: pdLL -> "D" Latch
-//       - 3th and 4th letters represents the type for the element ex: pdLL -> "LL" - Latch
-//       - 4th letter represent that type of the reset ex: pdLLa -> "a" asynchronous; pdLLs -> "s" synchronous; if this letter is missing, then the elemnt has no reset
-//       - 5th letter represent that this element has an enable ex: pdLLe -> "e" - Enable
-//       - 6th letter represent that this element has a standard output ex: pdLLeq -> "q" - Data output
-//       - 7th letter represent that this element has an inverted output ex: pdLLeqn -> "n" - Inverted data output
-//       - if 8th & 9th letters are "lp" the element is low power focused 
-
-
-
 // D Latch
 // Configurable Width from 1 to N bits per word
 // Configurable Reset Value (0 to N)
@@ -394,24 +371,7 @@
    endmodule : ndLqnLp
 `endif
 
-//////////////////////////////////////////////////////////////////////////////////
-//  _________ _____    _____ ______       _________ _____      ____   ______    //
-// |_   ___  |_   _|  |_   _|_   __ \    |_   ___  |_   _|   .'    \.|_   __ \  //
-//   | |_  \_| | |      | |   | |__) |     | |_  \_| | |    /  .--.  \ | |__) | //
-//   |  _|     | |   _  | |   |  ___/      |  _|     | |   _| |    | | |  ___/  //
-//  _| |_     _| |__/ |_| |_ _| |_        _| |_     _| |__/ |  \--'  /_| |_     //
-// |_____|   |________|_____|_____|      |_____|   |________|\.____.'|_____|    //
-//                                                                              // 
-//////////////////////////////////////////////////////////////////////////////////
 
-// The Following Info is available only for Standard Flip flops, other information will be written as comments before each component
-// Name: - First letter represent the triggering edge ex: pdff -> "p" rising edge 
-//       - Second letter represent the type of flip flop ex: pdff -> "D" flip flop
-//       - 3th and 4th letters represents the type for the element ex: pdff -> "ff" - Flip Flop
-//       - 4th letter represent that type of the reset ex: pdffa -> "a" asynchronous; pdffs -> "s" synchronous; if this letter is missing, then the elemnt has no reset
-//       - 5th letter represent that this element has an enable ex: pdff_e -> "e" - Enable
-//       - 6th letter represent that this element has a standard output ex: pdff_eq -> "q" - Data output
-//       - 7th letter represent that this element has an inverted output ex: pdff_eqn -> "n" - Inverted data output
 
 // D Flip Flop 
 // Configurable Width from 1 to N bits per word
@@ -429,13 +389,13 @@
       output logic [width-1:0] q_o
    );
 
-      logic [width-1:0] lreg;
+      logic [width-1:0] df;
 
       always_ff @(posedge clk_i)begin
-         lreg <= d_i;
+         df <= d_i;
       end
 
-      assign q_o = lreg;
+      assign q_o = df;
 
    endmodule : pdfq
 `endif
@@ -457,17 +417,17 @@
       output logic [width-1:0] q_o
    );
    
-      logic [width-1:0] lreg;
+      logic [width-1:0] df;
 
       always_ff @(posedge clk_i)begin
          if(!rsn_i)begin
-            lreg <= rval;    
+            df <= rval;    
          end else begin
-            lreg <= d_i;
+            df <= d_i;
          end
       end
      
-      assign q_o = lreg;
+      assign q_o = df;
 
    endmodule : pdfsq
 `endif
@@ -489,17 +449,17 @@
       output logic [width-1:0] q_o
    );
    
-      logic [width-1:0] lreg;
+      logic [width-1:0] df;
 
       always_ff @(posedge clk_i or negedge rsn_i)begin
          if(!rsn_i)begin
-            lreg <= rval;    
+            df <= rval;    
          end else begin
-            lreg <= d_i;
+            df <= d_i;
          end
       end
 
-      assign q_o = lreg;
+      assign q_o = df;
 
    endmodule : pdfaq
 `endif
@@ -522,18 +482,18 @@
       output logic [width-1:0] qn_o
    );
    
-      logic [width-1:0] lreg;
+      logic [width-1:0] df;
       
       always_ff @(posedge clk_i)begin
          if(!rsn_i)begin
-            lreg <= rval;    
+            df <= rval;    
          end else begin
-            lreg <= d_i;
+            df <= d_i;
          end
       end
       
-      assign q_o  =  lreg;
-      assign qn_o = ~lreg;
+      assign q_o  =  df;
+      assign qn_o = ~df;
 
    endmodule : pdfsqn
 `endif
@@ -556,18 +516,18 @@
       output logic [width-1:0] qn_o
    );
    
-      logic [width-1:0] lreg;
+      logic [width-1:0] df;
       
       always @(posedge clk_i or negedge rsn_i)begin
          if(!rsn_i)begin
-            lreg <= rval;    
+            df <= rval;    
          end else begin
-            lreg <= d_i;
+            df <= d_i;
          end
       end
    
-      assign q_o  =  lreg;
-      assign qn_o = ~lreg;
+      assign q_o  =  df;
+      assign qn_o = ~df;
    
    endmodule : pdfaqn
 `endif
@@ -588,13 +548,13 @@
       output logic [width-1:0] q_o
    );
 
-      logic [width-1:0] lreg;
+      logic [width-1:0] df;
 
       always_ff @(negedge clk_i)begin
-         lreg <= d_i;
+         df <= d_i;
       end
 
-      assign q_o = lreg;
+      assign q_o = df;
 
    endmodule : ndfq
 `endif
@@ -616,17 +576,17 @@
       output logic [width-1:0] q_o
    );
    
-      logic [width-1:0] lreg;
+      logic [width-1:0] df;
 
       always_ff @(negedge clk_i)begin
          if(!rsn_i)begin
-            lreg <= rval;    
+            df <= rval;    
          end else begin
-            lreg <= d_i;
+            df <= d_i;
          end
       end
      
-      assign q_o = lreg;
+      assign q_o = df;
 
    endmodule : ndfsq
 `endif
@@ -648,17 +608,17 @@
       output logic [width-1:0] q_o
    );
    
-      logic [width-1:0] lreg;
+      logic [width-1:0] df;
 
       always_ff @(negedge clk_i or negedge rsn_i)begin
          if(!rsn_i)begin
-            lreg <= rval;    
+            df <= rval;    
          end else begin
-            lreg <= d_i;
+            df <= d_i;
          end
       end
 
-      assign q_o = lreg;
+      assign q_o = df;
 
    endmodule : ndfaq
 `endif
@@ -681,18 +641,18 @@
       output logic [width-1:0] qn_o
    );
    
-      logic [width-1:0] lreg;
+      logic [width-1:0] df;
       
       always_ff @(negedge clk_i)begin
          if(!rsn_i)begin
-            lreg <= rval;    
+            df <= rval;    
          end else begin
-            lreg <= d_i;
+            df <= d_i;
          end
       end
       
-      assign q_o  =  lreg;
-      assign qn_o = ~lreg;
+      assign q_o  =  df;
+      assign qn_o = ~df;
 
    endmodule : ndfsqn
 `endif
@@ -715,33 +675,23 @@
       output logic [width-1:0] qn_o
    );
    
-      logic [width-1:0] lreg;
+      logic [width-1:0] df;
       
       always @(negedge clk_i or negedge rsn_i)begin
          if(!rsn_i)begin
-            lreg <= rval;    
+            df <= rval;    
          end else begin
-            lreg <= d_i;
+            df <= d_i;
          end
       end
    
-      assign q_o  =  lreg;
-      assign qn_o = ~lreg;
+      assign q_o  =  df;
+      assign qn_o = ~df;
    
    endmodule : ndfaqn
 `endif
 
 
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
-//    ______ _____      ____     ______ ___  ____        ______        __      _________ _____ ____  _____   ______    //
-//  ./ ___  |_   _|   .'    \. ./ ___  |_  ||_  _|     .' ___  |      /  \    |  _   _  |_   _|_   \|_   _|.' ___  |   //
-// / ./   \_| | |    /  .--.  \ ./   \_| | |_/ /      / .'   \_|     / /\ \   |_/ | | \_| | |   |   \ | | / .'   \_|   //
-// | |        | |   _| |    | | |        |  __'.      | |    ____   / ____ \      | |     | |   | |\ \| | | |    ____  //
-// \ \.___.'\_| |__/ |  \--'  / \.___.'\_| |  \ \_    \ \.___]  _|_/ /    \ \_   _| |_   _| |_ _| |_\   |_\ \.___]  _| //
-//  \._____.'________|\.____.' \._____.'____||____|    \._____.' |____|  |____| |_____| |_____|_____|\____|\._____.'   //
-//                                                                                                                     //    
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Synthesizable Static Clock Gate
 // Latch + AND Gate
@@ -927,15 +877,7 @@
    endmodule : CGFO
 `endif
 
-///////////////////////////////////////////////////////////////
-//       __      ________   ________   _________ _______     //
-//      /  \    |_   ___ \.|_   ___ \.|_   ___  |_   __ \    //
-//     / /\ \     | |   \. \ | |   \. \ | |_  \_| | |__) |   //
-//    / ____ \    | |    | | | |    | | |  _|  _  |  __ /    //
-//  _/ /    \ \_ _| |___.' /_| |___.' /_| |___/ |_| |  \ \_  //
-// |____|  |____|________.'|________.'|_________|____| |___| //
-//                                                           //
-///////////////////////////////////////////////////////////////
+
 
 // 1 bit Half Adder
 `ifdef hadder
@@ -1091,15 +1033,7 @@
    endmodule : addsubco
 `endif
 
-/////////////////////////////////////////////////////////////////////////////////
-//    ______   ____   _____  _____ ____  _____ _________ _________ _______     //
-//  ./ ___  |.'    \.|_   _||_   _|_   \|_   _|  _   _  |_   ___  |_   __ \    //
-// / ./   \_|  .--.  \ | |    | |   |   \ | | |_/ | | \_| | |_  \_| | |__) |   //
-// | |      | |    | | | '    ' |   | |\ \| |     | |     |  _|  _  |  __ /    //
-// \ \.___.'\  \--'  /  \ \--' /   _| |_\   |_   _| |_   _| |___/ |_| |  \ \_  //
-//  \._____.'\.____.'    \.__.'   |_____|\____| |_____| |_________|____| |___| //
-//                                                                             //    
-/////////////////////////////////////////////////////////////////////////////////
+
 
 // Synchronous Counter
 // UP Counter !!!
