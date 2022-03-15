@@ -125,11 +125,15 @@
 `endif
 
 `ifndef NClkSync
-   `define NClkSync
+   //`define NClkSync
 `endif
 
 `ifndef hadder
    //`define hadder
+`endif
+
+`ifndef adder
+   //`define adder
 `endif
 
 `ifndef addci
@@ -198,6 +202,33 @@
    //`define adncnt
 `endif
 
+`ifndef pgucnt
+   //`define pgucnt
+`endif
+
+`ifndef ngucnt
+   //`define ngucnt
+`endif
+
+`ifndef pgdcnt
+   //`define pgdcnt
+`endif
+
+`ifndef ngdcnt
+   //`define ngdcnt
+`endif
+
+
+`ifndef pgudcnt
+   `define pgudcnt
+`endif
+
+`ifndef ngudcnt
+   `define ngudcnt
+`endif
+
+
+
 `ifndef twosc
    //`define twosc
 `endif
@@ -230,8 +261,106 @@
    //`define rangecheck32b
 `endif
 
+`ifndef bin2gray
+   //`define bin2gray
+`endif
+
+`ifndef gray2bin
+   //`define gray2bin
+`endif
+
+
 // Compiler Directives for Modules 
 // Don't Change the below code!!!
+`ifdef ngudcnt
+   `ifndef ndfaq
+      `define ndfaq
+   `endif
+   `ifndef gray2bin
+      `define gray2bin
+   `endif
+   `ifndef addsub
+      `define addsub
+   `endif
+   `ifndef bin2gray
+      `define bin2gray
+   `endif      
+`endif
+
+`ifdef pgudcnt
+   `ifndef pdfaq
+      `define pdfaq
+   `endif
+   `ifndef gray2bin
+      `define gray2bin
+   `endif
+   `ifndef addsub
+      `define addsub
+   `endif
+   `ifndef bin2gray
+      `define bin2gray
+   `endif      
+`endif
+
+`ifdef ngdcnt
+   `ifndef ndfaq
+      `define ndfaq
+   `endif
+   `ifndef gray2bin
+      `define gray2bin
+   `endif
+   `ifndef addsub
+      `define addsub
+   `endif
+   `ifndef bin2gray
+      `define bin2gray
+   `endif      
+`endif
+
+`ifdef pgdcnt
+   `ifndef pdfaq
+      `define pdfaq
+   `endif
+   `ifndef gray2bin
+      `define gray2bin
+   `endif
+   `ifndef addsub
+      `define addsub
+   `endif
+   `ifndef bin2gray
+      `define bin2gray
+   `endif      
+`endif
+
+`ifdef ngucnt
+   `ifndef ndfaq
+      `define ndfaq
+   `endif
+   `ifndef gray2bin
+      `define gray2bin
+   `endif
+   `ifndef adder
+      `define adder
+   `endif
+   `ifndef bin2gray
+      `define bin2gray
+   `endif      
+`endif
+
+`ifdef pgucnt
+   `ifndef pdfaq
+      `define pdfaq
+   `endif
+   `ifndef gray2bin
+      `define gray2bin
+   `endif
+   `ifndef adder
+      `define adder
+   `endif
+   `ifndef bin2gray
+      `define bin2gray
+   `endif      
+`endif
 
 `ifdef PClkSync
    `ifndef pdfaq
